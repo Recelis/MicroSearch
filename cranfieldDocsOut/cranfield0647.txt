@@ -1,0 +1,1 @@
+  647  bending uniformly loaded rectangular plate  adjacent edges simply supported  free  huang conway  app mech 1952 451  distribution deflection bending moment  uniformly loaded rectangular plate adjacent  edges clamped simply supported  free obtained method superposition numerical  values square plates case  results compared obtained  method

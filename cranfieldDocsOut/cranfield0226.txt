@@ -1,0 +1,1 @@
+  226  aerofoil theory flat delta wing supersonic  speeds  robinson  rae aero 2151 1946  lift drag pressure distribution triangular  flat plate moving small incidence supersonic  speeds arbitrary mach number aspect ratio  values obtained lift drag compared  values obtained strip theory  possibility applications analysis leading  results

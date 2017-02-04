@@ -1,0 +1,1 @@
+  735  bending uniformly loaded sectorial plates  clamped edges  conway huang  app mech 19 1962 5  paper analyzes bending sectorial plate  clamped edges subjected uniformly distributed  load methods superposition  elementary solution uniformly loaded circular  plate clamped edge

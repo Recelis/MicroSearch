@@ -1,0 +1,1 @@
+  676  simple method calculating span chordwise loading  straight swept wings aspect ratio subsonic speeds  kuchemann  2935 rep aero 2476 15 633 august 1962  methods classical aerofoil theory derive  general theory wings planform load  surface wing calculated subcritical  mach number procedure simple rapid  classical aerofoil theory calculated results confirmed  experiments

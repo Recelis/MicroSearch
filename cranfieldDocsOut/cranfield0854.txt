@@ -1,0 +1,1 @@
+  854  boundary problems thin walled circular  cylinder  hoff  app mech 21 1954  homogeneous differential equations donnell  theory thin cylindrical shells integrated expressions  obtained closed form displacements  membrane stresses moments shear forces

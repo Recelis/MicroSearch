@@ -1,0 +1,1 @@
+  382  note laminar boundary layer circular cylinder  axial incompressible flow  howard kelly  naval ordnance test station inyokern china lake calif  correction made equation compute ratio  displacement thickness cylinder  thickness flat plate

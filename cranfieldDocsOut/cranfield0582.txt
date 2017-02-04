@@ -1,0 +1,1 @@
+  582  melting finite slabs  goodman shea  app mech 27 1960 16  approximate method  heat balance integral determine  melting rate finite slab initially  uniform temperature melting  point slab acted  constant heat input face  face insulated initial  temperature terms series  solutions intrinsically small parameter  obtained time histories  melting temperature distribution slab

@@ -1,0 +1,1 @@
+  532  pitch yaw stability missile oscillating roll  method lyapunov  parks  ae scs 29 1962 874  stability theory lyapunov popular topic  receiving increasing attention  note describes lyapunov method briefly  applies aeronautical stability problem

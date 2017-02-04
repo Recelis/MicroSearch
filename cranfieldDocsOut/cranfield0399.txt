@@ -1,0 +1,1 @@
+  399  conduction heat composite slabs  jaeger  quart appl math 8 july 1950 pp 187 198  method calculating total quantity heat passes  unit area time time developed allowance made  surface resistance contact resistance additional  layer thermal resistance heat  capacity

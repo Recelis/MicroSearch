@@ -1,0 +1,1 @@
+  1085  note convergence numerical solutions navier stokes  equations  thom apelt  3061 1956  criterion convergence numerical solutions  navier stokes equations dimensions steady conditions  criterion applies cases steady viscous flow dimensions  shows local mesh reynolds number based size  mesh solution exceeds fixed numerical  solution converge

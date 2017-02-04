@@ -1,0 +1,1 @@
+  398  heat transfer turbulent shear flow  rannie  ae scs 23 1956  problems heat transfer turbulent shear flow  smooth wall discussed point view von karman  1939 paper analogy fluid friction  heat transfer methods extending analysis higher  prandtl numbers suggested

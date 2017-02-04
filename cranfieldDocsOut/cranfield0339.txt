@@ -1,0 +1,1 @@
+  339  experimental evaluation heat transfer transpiration  cooling turbulent boundary layer 3 2  bartle leadon  ae scs 27 1960  found prescribed velocity field electrical field  conductivity current calculated integration work  related analytic investigation boundary layer physically  reasonable accelerator

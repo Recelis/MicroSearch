@@ -1,0 +1,1 @@
+  324  vorticity effect stagnation point flow viscous incompressible  fluid  rott lenard  aero sc 26 august 1959  effect vorticity axisymmetric stagnation point boundary layer  calculations investigated calculating perturbation  stagnation point flow shear caused vorticity effect  found surprisingly large slope shear curve  vorticity calculated kemp agrees perfectly deduced  note

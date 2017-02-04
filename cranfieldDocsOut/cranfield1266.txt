@@ -1,0 +1,1 @@
+  1266  minimum wing wave drag volume constraint  strand  ae scs 1960 615  numerical method developed calculating minimum  thickness drag wing planform volume  linearized supersonic flow theory optimum  volume distribution determined results show  considerable drag reduction improved volume  distribution

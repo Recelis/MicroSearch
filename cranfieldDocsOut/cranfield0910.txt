@@ -1,0 +1,1 @@
+  910  natural frequencies continuous beams uniform  span length  ayre jacobson  app mech 17 1950 391  simple graphical network determine  natural frequencies flexural vibration continuous  beams number spans uniform length  network based calculated  values

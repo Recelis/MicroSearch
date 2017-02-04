@@ -1,0 +1,1 @@
+  485  linear heat flow composite slab  reid  ae scs 29 1962  temperature determined function position  time case linear heat conduction composite slab  ture external surface temperatures  considered prescribed functions

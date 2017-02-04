@@ -1,0 +1,1 @@
+  1141  wake oscillating vehicle  zeisberg  ae scs 29 1962 1344  incompressible laminar wake oscillating  vehicle analyzed oseen linearization  assumption wake cross section axisymmetric  time wise drag variations represented  wake diameter velocity defect shown unsteadiness  flow predicted quasi steady theory

@@ -1,0 +1,1 @@
+  451  liapunov methods automatic control theory  parks  control november december 1962  work liapunov theory stability discussed  method liapunov shown applications linear  equations real constant coefficients proof routhhurwitz  criterion linear equations periodic coefficients  practical examples include linear stability problems control  functions areas control systems

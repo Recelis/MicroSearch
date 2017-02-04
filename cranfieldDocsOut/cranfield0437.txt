@@ -1,0 +1,1 @@
+  437  hypervelocity stagnation point heat transfer  scala warren  arsj jan 1962  analysis includes specific contributions atoms molecules  tions partially ionized air approximated fourcomponent  gas including n2 ii gas local thermochemical  equilibrium iii charge separation iv  thermal diffusion neglected electrical magnetic fields  low effects neglected

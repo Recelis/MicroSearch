@@ -1,0 +1,1 @@
+  387  heat transfer laminar flow annulus porous  wall  inman  ae scs 26 1959 532  temperature profiles heat transfer rates established incompressible  flow annulus channel porous walls  constant temperatures determined injection rates  axial conduction viscous dissipation usual neglected  injecting fluid tacitly assumed temperature  porous wall

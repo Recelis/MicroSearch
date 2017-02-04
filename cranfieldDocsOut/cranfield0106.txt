@@ -1,0 +1,1 @@
+  106  transverse potential flow past body revolution  campbell  mech app math 9 1956 140  shown potential flow  incompressible inviscid fluid past  body revolution set axis  angles stream velocity components  surface perpendicular  meridians vary azimuthal  angle round body simple manner  shown elementary  considerations

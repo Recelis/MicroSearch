@@ -1,0 +1,1 @@
+  963  variational principle convection heat  agrawal  math mech 9 6 1960  authors extend variational principle biot cases heat  transfer due forced convection numerical results  dimensional problems fluid flowing parallel walls  uniform parabolic velocity profiles agreement exact solutions  excellent

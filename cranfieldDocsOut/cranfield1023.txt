@@ -1,0 +1,1 @@
+  1023  note creep buckling columns  theory creep buckling presented instantaneous  elastic plastic deformations application load  steady creep deformations considered approximate  manner equations critical time  time elapsing load application collapse column  computed

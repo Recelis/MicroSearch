@@ -1,0 +1,1 @@
+  258  effect turbulence slider bearing lubrication  chou saibei  app mech 25 1959 122  based prandtl mixing length mechanism pressure  equation turbulent flow  slider bearing lubrication derived analytical  solution compared  laminar flow found turbulent  effect increases pressure  load carrying capacity  power loss increases

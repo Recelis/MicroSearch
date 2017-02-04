@@ -1,0 +1,1 @@
+  1073  practical method numerical evaluation solutions  partial differential equations heat conduction  type  crank nicolson  proc cam phil soc 43 1947 50  approximate methods solution nonlinear  equation heat flow medium heat  generated chemical reaction compared  equations  subscripts partial differentiations

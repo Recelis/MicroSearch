@@ -1,0 +1,1 @@
+  880  design testing supersonic flutter models  mccarthy halfman  aero sc june 1956  basic problems flutter testing low supersonic speed range  simulate full scale airplanes mach number included parameter  reviewed compared velocity scaled  leading edges transonic compared  results serve check results tables  ii

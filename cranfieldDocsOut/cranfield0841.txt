@@ -1,0 +1,1 @@
+  841  bending circular cylindrical shells  pure bending  seide weingarten  app mech 28 1961  stability circular cylindrical shells pure bending investigated  means batdorf modified donnell equation  galerkin method results investigation shown  contrary commonly accepted maximum critical bending  stress practical purposes equal critical compressive  stress

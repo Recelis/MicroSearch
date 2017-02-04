@@ -1,0 +1,1 @@
+  1267  supersonic flow past thick airfoils  kogan  ae scs 1960 504  inviscid rotational supersonic flow shock wave  attached sharp leading edge airfoil studied  transformation coordinates introduces crocco stream  function independent variable  expansions power series iterative process  developed determination pressure distribution  airfoil surface

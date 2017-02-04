@@ -1,0 +1,1 @@
+  385  generalised porous wall couette type flow  lilley  ae scs 26 1959 685  recent paper problem couette type flow  fixed wall porous considered  results quoted reference obtained rigorously  method stated interpretation  parameters made

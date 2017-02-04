@@ -1,0 +1,1 @@
+  264  asymptotic solution dimensional oscillating  aerofoil problem high subsonic mach numbers  eckhaus  proc 9th int con app mech 1956  method obtaining asymptotic solutions  boundary problem wave equation method simpler  method previously burger leads result  identical burger result

@@ -1,0 +1,1 @@
+  920  supersonic flow inclined wing aspect ratio  stewartson  proc camb phil soc 46 pt 2 p307 april 1950  asymptotic expression found lift distribution long  narrow laminar wing incidence supersonic stream approximations  linearized potential theory

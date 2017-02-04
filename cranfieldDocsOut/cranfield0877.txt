@@ -1,0 +1,1 @@
+  877  influence aerodynamic heating flexural  rigidity thin wing  mansfield  arc 3115 1957  report considers loss flexural rigidity thin wing due  presence middle surface stresses resulting aerodynamic  heating spanwise properties wing assumed constant  wing section arbitrary loss flexural rigidity  comparable loss torsional rigidity

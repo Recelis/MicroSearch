@@ -1,0 +1,1 @@
+  871  steady state creep dislocation climb  weertman  app phys 28 1957 362  dislocation climb creep model considered require  production immobile dislocations creep equation  results analysis  constants stress activation energy  creep kt usual meaning equation similar  previously proposed

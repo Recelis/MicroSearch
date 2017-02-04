@@ -1,0 +1,1 @@
+  194  general theory airfoil sections arbitrary  shape pressure distribution  allen  naca r833 1945  report theory thin airfoils small camber  developed permits velocity distribution  airfoil shape airfoil shape  velocity distribution calculated  procedures employed calculations outlined  illustrated suitable examples
