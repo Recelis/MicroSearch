@@ -22,9 +22,10 @@ public class KeyWordSearch {
 	public KeyWordSearch(String filename) {
 		keyWordIn.ReadIn(filename);
 		keyWords = keyWordIn.fileArray[0].split("[\\W]");
+		System.out.println("You are searching for today... ");
 		for (int ii = 0; ii <keyWords.length; ii++){
 			keyWords[ii] = keyWords[ii].toLowerCase(); // convert Keywords to Lower Case
-			System.out.print(keyWords[ii]);
+			System.out.print(keyWords[ii] + " ");
 		}
 	}
 	/**
