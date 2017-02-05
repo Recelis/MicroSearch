@@ -19,5 +19,6 @@ public class BackData {
 	static public int[][] hashArrayAfter;
 	static public List<String> KeysBefore;
 	static public List<String> KeysAfter;
+	static public String[] query; // prev keyWords
 	
 }

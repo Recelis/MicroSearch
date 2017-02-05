@@ -10,7 +10,6 @@ import Storage.BackData;
 public class KeyWordSearch {
 	private Files keyWordIn = new Files();
 	public String filename;
-	private String[] keyWords;
 	public static Hashtable<String, Integer> RankingTable = new Hashtable<String, Integer>();
 	int[][] finalRankingTable;
 	SortingHashArray rankDocuments;
@@ -25,11 +24,11 @@ public class KeyWordSearch {
 	 */
 	public KeyWordSearch(String filename) {
 		keyWordIn.ReadIn(filename);
-		keyWords = keyWordIn.fileArray[0].split("[\\W]");
+		BackData.query = keyWordIn.fileArray[0].split("[\\W]");
 		System.out.println("You are searching for today... ");
-		for (int ii = 0; ii <keyWords.length; ii++){
-			keyWords[ii] = keyWords[ii].toLowerCase(); // convert Keywords to Lower Case
-			System.out.print(keyWords[ii] + " ");
+		for (int ii = 0; ii <BackData.query.length; ii++){
+			BackData.query[ii] = BackData.query[ii].toLowerCase(); // convert Keywords to Lower Case
+			System.out.print(BackData.query[ii] + " ");
 		}
 	}
 	/**
@@ -41,7 +40,7 @@ public class KeyWordSearch {
 	 * ====================	
 	 */
 	public String[] returnKeyWords(){
-		return keyWords;
+		return BackData.query;
 	}
 	/**
 	 * ====================
@@ -52,7 +51,7 @@ public class KeyWordSearch {
 	 * ====================	
 	 */
 	public void TermAtATime(){
-		for (String word:keyWords){ //word:(name:freq) (name:freq) ...etc
+		for (String word:BackData.query){ //word:(name:freq) (name:freq) ...etc
 			if (!InvertedIndex.invertedIndex.containsKey(word)) { // if InvertedIndex does not have query word, skip
 				continue;
 			}
