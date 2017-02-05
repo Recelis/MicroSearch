@@ -103,7 +103,6 @@ public class MicroSearch {
 		catch (NullPointerException npe) {
 				 System.out.println("IOE");
 		}
-		search.numberOfDocs = BackData.numDocs;
 	}
 	
 	/**
@@ -120,7 +119,7 @@ public class MicroSearch {
 		// Vector Space
 		vectorSpace = new VectorSpaceModel(BackData.numDocs);
 		for(int ii = 0; ii < BackData.numDocs;ii++){ // loop through each document in directory
-			name = nfile.directoryNames[ii];
+			name = Files.directoryNames[ii];
 			nfile.ReadIn(DataDirectory + "/" + name);
 			nfile.fileContents.clear(); // clear fileContents for each previous file
 			while (jj < nfile.fileArray.length){ // loop over each line in file

@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Files {
-	public String[] directoryNames;
+	static public String[] directoryNames;
 	public ArrayList<String> fileContents = new ArrayList<String>();
 	public String[] fileArray;
 	public String[] newFileArray;
@@ -120,7 +120,8 @@ public class Files {
 
 		} catch (IOException e) {
 			System.out.println("Currently null");
-		}	
+		}
+		output.close();
 	}
 	
 }

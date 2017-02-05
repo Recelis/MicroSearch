@@ -131,7 +131,6 @@ public class Processing {
 		String locLine = line;
 		String returnLine = "";
 		int ii = 0;
-		boolean firstTime = true;
 		if(locLine == newline || locLine == "\n") return null;
 		String[] tokens = locLine.split("[\\W]");
 		while(ii < tokens.length){

@@ -11,7 +11,6 @@ public class KeyWordSearch {
 	public String filename;
 	private String[] keyWords;
 	public static Hashtable<String, Integer> RankingTable = new Hashtable<String, Integer>();
-	public static int numberOfDocs;
 	int[][] finalRankingTable;
 	SortingHashArray rankDocuments;
 	/**
