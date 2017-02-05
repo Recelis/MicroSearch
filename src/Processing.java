@@ -68,7 +68,7 @@ public class Processing {
 	 * StatsCall
 	 * 	 
 	 * 	Description
-	 * 	writes all of the output statistics processing text
+	 * 	writes all of the output statistics processing text into static BackData values
 	 * ====================	
 	 */
 	public void StatsCall(){

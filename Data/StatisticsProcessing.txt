@@ -116,3 +116,15 @@ shown 347
 ae 344
 air 343
 scs 340
+------------------------------------------------------------------------------------------------------------------------------------
+The top 10 or less most relevent files are
+file: cranfield1380 frequency: 12
+file: cranfield0701 frequency: 12
+file: cranfield0699 frequency: 9
+file: cranfield0561 frequency: 9
+file: cranfield1291 frequency: 8
+file: cranfield1265 frequency: 8
+file: cranfield0811 frequency: 7
+file: cranfield0698 frequency: 7
+file: cranfield0225 frequency: 7
+file: cranfield0730 frequency: 7

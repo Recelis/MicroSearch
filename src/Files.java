@@ -126,6 +126,17 @@ public class Files {
 		}
 		output.close();
 	}
+	
+	/**
+	 * ====================
+	 * processLine
+	 * 	 
+	 * 	Description
+	 * 	processes all each line
+	 * 	removing stopwords, tags and punctuation
+	 *  inputs each line's elements into inverted index.
+	 * ====================	
+	 */
 	public void processLine(String name) {
 		int jj = 0;
 		while (jj < fileArray.length){ // loop over each line in file
@@ -137,7 +148,15 @@ public class Files {
 		}
 		jj = 0; //reset line number for new file
 	}
-	
+	/**
+	 * ====================
+	 * WriteOut
+	 * 	 
+	 * 	Description
+	 * 	allows for MicroSearch to call StatsCall 
+	 * 	after all processing is done
+	 * ====================	
+	 */
 	public void ProcessStatsCall(){
 		PreProcessing.StatsCall();
 	}

@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import HashArray.SortingHashArray;
+import Storage.BackData;
 
 public class KeyWordSearch {
 	private Files keyWordIn = new Files();
@@ -96,8 +97,8 @@ public class KeyWordSearch {
 	 * 	returns finalRankingTable
 	 * ====================	
 	 */
-	public int[][] returnRankTable(){
-		return finalRankingTable;
+	public void returnRankTable(){
+		BackData.rankedTable = finalRankingTable;
 	}
 	/**
 	 * ====================
@@ -107,7 +108,7 @@ public class KeyWordSearch {
 	 * 	returns the Strings names for each corresponding value in finalRankingTable
 	 * ====================	
 	 */
-	public List<String> returnKeys(){
-		return rankDocuments.Keys;
+	public void returnKeys(){
+		BackData.Keys = rankDocuments.Keys;
 	}
 }

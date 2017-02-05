@@ -9,7 +9,7 @@ public class BackData {
 		// TODO Auto-generated constructor stub
 	}
 	static public int numDocs = 0;
-	static public int[][] sortedArray;
+	static public int[][] rankedTable;
 	static public List <String> Keys;
 	static public long numberOfWordsBefore;
 	static public long numberOfWordsAfter;

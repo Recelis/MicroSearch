@@ -48,7 +48,7 @@ public class MicroSearch {
 		readInDocs();
 		processAndIndex();
 		keywordSearchOp();
-		nfile.ProcessStatsCall();
+		nfile.ProcessStatsCall(); // moves stats info from above functions to BackData 
 		
 //		//Vector Space Section
 //		List<String> Terms = PreProcessing.ReturnKeys();
@@ -76,18 +76,13 @@ public class MicroSearch {
 //		}
 //		String[] rankedDocs = vectorSpace.CosineCalc();
 //		double[][] vectorSpaceModel = vectorSpace.VectorSpaceOut(0);
-		
+//		
 //		outStats.Assignment3Output(vectorSpaceModel, rankedDocs); // text output write 
-//		outStats.Assignment1Output();
-		//outStats.Assignment2Output(rankTable, Keys);
-//		outStats.write();
-		
-//		Files outStats = new FilesStats("StatisticsProcessing", TNOW1, TNOW2, vocab1, vocab2, Stats1.Keys, HashArray, Stats2.Keys, HashArray2);
-//		outStats.Title();
-//		FilesStats invertedWrite = new FilesStats("InvertedIndex", TNOW1, TNOW2, vocab1, vocab2, Stats1.Keys, HashArray, Stats2.Keys, HashArray2);
-//		invertedWrite.Assignment2invertedIndex();
-//		invertedWrite.write();
-		
+//		
+		//
+//		
+		writeOut();
+
 	}	
 	
 	/**
@@ -143,9 +138,30 @@ public class MicroSearch {
 	 */
 	public static void keywordSearchOp(){
 		search.TermAtATime(); // implements keyword search
-		BackData.sortedArray = search.returnRankTable();
-		BackData.Keys = search.returnKeys();
+		search.returnRankTable();
+		search.returnKeys();
 	}
+	/**
+	 * ====================
+	 * writeOut
+	 * 
+	 * 	Description
+	 * function that performs all of the 
+	 * FilesStat info inputs and writes
+	 * ====================	
+	 */
+	public static void writeOut(){
+		// may need to change FilesStats so that argument inputs are easier
+		FilesStats outStats = new FilesStats("StatisticsProcessing", BackData.numberOfWordsBefore, BackData.numberOfWordsAfter, BackData.vocabBefore, BackData.vocabAfter, BackData.KeysBefore, BackData.hashArrayBefore, BackData.KeysAfter, BackData.hashArrayAfter);
+		outStats.Title();
+		outStats.Assignment1Output();
+		outStats.Assignment2Output(BackData.rankedTable, BackData.Keys);
+		outStats.write();
+		FilesStats invertedWrite = new FilesStats("InvertedIndex", BackData.numberOfWordsBefore, BackData.numberOfWordsAfter, BackData.vocabBefore, BackData.vocabAfter, BackData.KeysBefore, BackData.hashArrayBefore, BackData.KeysAfter, BackData.hashArrayAfter);
+		invertedWrite.Assignment2invertedIndex();
+		invertedWrite.write();
+	}
+	
 	
 	/**
 	 * ====================
