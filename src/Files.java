@@ -1,7 +1,10 @@
 import java.io.*;
 import java.util.*;
 
+
 public class Files {
+	private static Processing PreProcessing = new Processing();
+	static InvertedIndex index = new InvertedIndex();
 	static public String[] directoryNames;
 	public ArrayList<String> fileContents = new ArrayList<String>();
 	public String[] fileArray;
@@ -123,5 +126,19 @@ public class Files {
 		}
 		output.close();
 	}
+	public void processLine(String name) {
+		int jj = 0;
+		while (jj < fileArray.length){ // loop over each line in file
+			String line = fileArray[jj];
+			line = PreProcessing.ProcessLine(line);
+			index.scanForWord(line, name); //build inverted index
+			fileContents.add(line); // add processed line in each file
+			jj++;
+		}
+		jj = 0; //reset line number for new file
+	}
 	
+	public void ProcessStatsCall(){
+		PreProcessing.StatsCall();
+	}
 }

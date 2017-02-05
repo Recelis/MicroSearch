@@ -20,8 +20,6 @@ public class MicroSearch {
 	static Files vfile = new Files(); // vectorspace files
 	static Files common_words_file = new Files();
 	static String DataDirectory = "cranfieldDocs";
-	private static Processing PreProcessing = new Processing();
-	static InvertedIndex index = new InvertedIndex();
 	static KeyWordSearch search = new KeyWordSearch("KeyWord.txt");
 	static VectorSpaceModel vectorSpace;
 	// data members
@@ -50,40 +48,45 @@ public class MicroSearch {
 		readInDocs();
 		processAndIndex();
 		keywordSearchOp();
-		FilesStats outStats = PreProcessing.StatsCall(); // calculates statistics and prepares for write
+		nfile.ProcessStatsCall();
 		
-		
-		//Vector Space Section
-		List<String> Terms = PreProcessing.ReturnKeys();
-		int[][] HashArray = PreProcessing.returnHashArray();
-		String[] query = search.returnKeyWords();
-		vectorSpace.VectorRequired(Terms, BackData.numDocs, query, HashArray);
-		
-		//loop through documents to build vector space model
-		int jj = 0;
-		String name;
-		vfile.DirectContents(DataDirectory+"Out");
-		String[] namesList = vfile.directoryNames;
-		vectorSpace.VectorSpaceLookUp(namesList);
-		for (int ii = 0 ; ii < BackData.numDocs; ii++){
-			name = vfile.directoryNames[ii];
-			vfile.ReadIn(DataDirectory+"Out" + "/" + name);
-			vfile.fileContents.clear(); // clear fileContents for each previous file
-			while (jj < vfile.fileArray.length){ // processing of each line in file
-				String line = vfile.fileArray[jj];
-				vectorSpace.ScanForFreq(line, name);
-				
-				jj++;
-			}
-			jj = 0; //reset line number for new file
-		}
-		String[] rankedDocs = vectorSpace.CosineCalc();
-		double[][] vectorSpaceModel = vectorSpace.VectorSpaceOut(0);
+//		//Vector Space Section
+//		List<String> Terms = PreProcessing.ReturnKeys();
+//		int[][] HashArray = PreProcessing.returnHashArray();
+//		String[] query = search.returnKeyWords();
+//		vectorSpace.VectorRequired(Terms, BackData.numDocs, query, HashArray);
+//		
+//		//loop through documents to build vector space model
+//		int jj = 0;
+//		String name;
+//		vfile.DirectContents(DataDirectory+"Out");
+//		String[] namesList = vfile.directoryNames;
+//		vectorSpace.VectorSpaceLookUp(namesList);
+//		for (int ii = 0 ; ii < BackData.numDocs; ii++){
+//			name = vfile.directoryNames[ii];
+//			vfile.ReadIn(DataDirectory+"Out" + "/" + name);
+//			vfile.fileContents.clear(); // clear fileContents for each previous file
+//			while (jj < vfile.fileArray.length){ // processing of each line in file
+//				String line = vfile.fileArray[jj];
+//				vectorSpace.ScanForFreq(line, name);
+//				
+//				jj++;
+//			}
+//			jj = 0; //reset line number for new file
+//		}
+//		String[] rankedDocs = vectorSpace.CosineCalc();
+//		double[][] vectorSpaceModel = vectorSpace.VectorSpaceOut(0);
 		
 //		outStats.Assignment3Output(vectorSpaceModel, rankedDocs); // text output write 
-		outStats.Assignment1Output();
+//		outStats.Assignment1Output();
 		//outStats.Assignment2Output(rankTable, Keys);
-		outStats.write();
+//		outStats.write();
+		
+//		Files outStats = new FilesStats("StatisticsProcessing", TNOW1, TNOW2, vocab1, vocab2, Stats1.Keys, HashArray, Stats2.Keys, HashArray2);
+//		outStats.Title();
+//		FilesStats invertedWrite = new FilesStats("InvertedIndex", TNOW1, TNOW2, vocab1, vocab2, Stats1.Keys, HashArray, Stats2.Keys, HashArray2);
+//		invertedWrite.Assignment2invertedIndex();
+//		invertedWrite.write();
 		
 	}	
 	
@@ -122,15 +125,8 @@ public class MicroSearch {
 			name = Files.directoryNames[ii];
 			nfile.ReadIn(DataDirectory + "/" + name);
 			nfile.fileContents.clear(); // clear fileContents for each previous file
-			while (jj < nfile.fileArray.length){ // loop over each line in file
-				String line = nfile.fileArray[jj];
-				line = PreProcessing.ProcessLine(line);
-				index.scanForWord(line, name); //build inverted index
-				nfile.fileContents.add(line); // add processed line in each file
-				jj++;
-			}
-			jj = 0; //reset line number for new file
-			try {
+			nfile.processLine(name);
+			try { // Write out processed files
 				nfile.WriteOut(DataDirectory + "Out", name);				
 				} catch (IOException e) {
 				System.out.println("FNE");
@@ -147,8 +143,8 @@ public class MicroSearch {
 	 */
 	public static void keywordSearchOp(){
 		search.TermAtATime(); // implements keyword search
-		int[][] sortedArray = search.returnRankTable();
-		List <String> Keys = search.returnKeys();
+		BackData.sortedArray = search.returnRankTable();
+		BackData.Keys = search.returnKeys();
 	}
 	
 	/**

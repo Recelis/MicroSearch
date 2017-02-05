@@ -1,5 +1,7 @@
 import java.util.List;
 
+import Storage.BackData;
+
 /**
  * ====================
  * Constructor
@@ -69,26 +71,20 @@ public class Processing {
 	 * 	writes all of the output statistics processing text
 	 * ====================	
 	 */
-	public FilesStats StatsCall(){
-		long TNOW1 = Stats1.ReturnTotalNumberOfWords();
-		long TNOW2 = Stats2.ReturnTotalNumberOfWords();
-		long vocab1 = Stats1.returnVocab();
-		long vocab2 = Stats2.returnVocab();
-		int[][] HashArray = Stats1.sortStats();
-		int [][] HashArray2 = Stats2.sortStats();
-		HashArray2out = HashArray2;
-		String statsFileName = "StatisticsProcessing";
-		outStats = new FilesStats(statsFileName, TNOW1, TNOW2, vocab1, vocab2, Stats1.Keys, HashArray, Stats2.Keys, HashArray2);
-		outStats.Title();
-		FilesStats invertedWrite = new FilesStats("InvertedIndex", TNOW1, TNOW2, vocab1, vocab2, Stats1.Keys, HashArray, Stats2.Keys, HashArray2);
-		invertedWrite.Assignment2invertedIndex();
-		invertedWrite.write();
-		return outStats;
+	public void StatsCall(){
+		BackData.numberOfWordsBefore = Stats1.ReturnTotalNumberOfWords();
+		BackData.numberOfWordsAfter = Stats2.ReturnTotalNumberOfWords();
+		BackData.vocabBefore = Stats1.returnVocab();
+		BackData.vocabAfter = Stats2.returnVocab();
+		BackData.hashArrayBefore = Stats1.sortStats();
+		BackData.hashArrayAfter = Stats2.sortStats();
+		BackData.KeysBefore = Stats1.Keys;
+		BackData.KeysAfter = Stats2.Keys;
 	}
 	
-	public int[][] returnHashArray(){
-		return HashArray2out;
-	}
+//	public int[][] returnHashArray(){
+//		return HashArray2out;
+//	}
 	/**
 	 * ====================
 	 * ReturnKeys
