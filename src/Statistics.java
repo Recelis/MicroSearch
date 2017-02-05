@@ -3,6 +3,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
+import HashArray.SortingHashArray;
+
 public class Statistics {
 	Hashtable<String, Integer> WordFreq = new Hashtable<String, Integer>(); // Hash table contains key and value
 	public long TotalNumberWords = 0;

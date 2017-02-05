@@ -1,6 +1,10 @@
+
+
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
+
+import HashArray.SortingHashArray;
 
 public class KeyWordSearch {
 	private Files keyWordIn = new Files();
