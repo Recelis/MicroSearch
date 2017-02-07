@@ -115,7 +115,7 @@ public class MicroSearch {
 		String name;
 		int jj = 0; // value for line number in file
 		// Vector Space
-		vectorSpace = new VectorSpaceModel(BackData.numDocs);
+		vectorSpace = new VectorSpaceModel();
 		for(int ii = 0; ii < BackData.numDocs;ii++){ // loop through each document in directory
 			name = Files.directoryNames[ii];
 			nfile.ReadIn(DataDirectory + "/" + name);

@@ -71,9 +71,8 @@ public class VectorSpaceModel {
 	
 	public double idf(String query){
 		//numDocs
-		InvertedIndex.invertedIndex.get(query).size();//number of documents containing term k
-		double a = 1;
-		return a;
+		double nk = InvertedIndex.invertedIndex.get(query).size();//number of documents containing term k
+		return Math.log(BackData.numDocs/nk);
 	}
 	
 	/**
