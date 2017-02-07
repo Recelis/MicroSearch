@@ -20,5 +20,5 @@ public class BackData {
 	static public List<String> KeysBefore;
 	static public List<String> KeysAfter;
 	static public String[] query; // prev keyWords
-	
+	static public int numRetrieve = 100;
 }

@@ -54,14 +54,14 @@ public class MicroSearch {
 //		List<String> Terms = PreProcessing.ReturnKeys();
 //		int[][] HashArray = PreProcessing.returnHashArray();
 //		String[] query = search.returnKeyWords();
-		vectorSpace.VectorRequired();
+		vectorSpace.vectorTFIDF();
 //		
 //		//loop through documents to build vector space model
-		int jj = 0;
-		String name;
-		vfile.DirectContents(DataDirectory+"Out");
+//		int jj = 0;
+//		String name;
+//		vfile.DirectContents(DataDirectory+"Out");
 		String[] docList = vfile.directoryNames; 
-		vectorSpace.VectorSpaceLookUp(docList); // namesList
+//		vectorSpace.VectorSpaceLookUp(docList); // namesList
 //		for (int ii = 0 ; ii < BackData.numDocs; ii++){
 //			name = vfile.directoryNames[ii];
 //			vfile.ReadIn(DataDirectory+"Out" + "/" + name);

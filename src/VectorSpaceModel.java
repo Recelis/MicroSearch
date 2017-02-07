@@ -22,20 +22,8 @@ import java.lang.Math;
  * ====================	
  */
 public class VectorSpaceModel {
-	double[][] VectorSpace;
-	double[] VectorSpaceQ = new double[1000];
-	int[][] TermFreq;
-	int[] TermDocFreq = new int[1000]; // used for idf number of docs per term
-	int[] TermDocFreqQ = new int[1000]; // used for idf number of docs per term
-	int[][] TermFreqQ; // used for idf number of docs per term
-	Hashtable<String, Integer> termDex = new Hashtable<String, Integer>();
-	Hashtable<String, Integer> termQDex = new Hashtable<String, Integer>();
-	Hashtable<String, Integer> docuDex = new Hashtable<String, Integer>(); 
-	String[] mostFrequentTerms = new String[1000];
-	int[] MostFrequentFreq = new int[1000];
-	String[] Q;
+	int[][] tfidfMatrix; // used for idf number of docs per term
 	String[] listDocs;
-	int N;
 	/**
 	 * ====================
 	 * Constructor
@@ -44,100 +32,45 @@ public class VectorSpaceModel {
 	 * 	creates vectorspace model data structure
 	 * ====================	
 	 */
-	public VectorSpaceModel(int docNum) {
-		VectorSpace = new double[1000][docNum]; // assume already 0
-		TermFreq = new int[1000][docNum]; // assume already 0
-		TermFreqQ = new int[1000][docNum]; // assume already 0
-		N = docNum;
+	public VectorSpaceModel() {
 	}
 	/**
 	 * ====================
-	 * VectorRequired
+	 * vectorTFIDF
 	 * 	 
 	 * 	Description
-	 * 	gets top 1000 words as list
+	 * 	builds a td-idf matrix with documents that contain the query
 	 * ====================	
 	 */
-	public void VectorRequired(){
-		//sort this to descending order
-		int ii = 0;
-		int arrayMin = Math.min(BackData.hashArrayAfter.length, 1000);
-		System.out.println("array min is " + arrayMin);
-		while(ii < arrayMin){
-			mostFrequentTerms[ii] = (BackData.KeysAfter.get(BackData.hashArrayAfter[ii][0]));
-			MostFrequentFreq[ii] = (BackData.hashArrayAfter[ii][1]);
-			System.out.println(mostFrequentTerms[ii] + " " + MostFrequentFreq[ii]);
-			ii++;
-		}
-		Q = BackData.query; //break into words
-	}
-	
-	/**
-	 * ====================
-	 * VectorSpaceLookUp
-	 * 	 
-	 * 	Description
-	 * 	makes hashtables for easy lookup of doc and terms tf on vectorspace.
-	 * ====================	
-	 */ 
-	public void VectorSpaceLookUp(String[] docList){
-		listDocs = docList;
-		// build term frequency so that it starts off with doc:<term, 0>
-		for (int ii = 0; ii < mostFrequentTerms.length; ii++){
-//			termDex.put(MostFrequent[ii][0], MostFrequent[ii][1]);
-		}
+	public void vectorTFIDF(){	
+		tfidfMatrix = new int[BackData.numDocs][BackData.numRetrieve];
 		
-		for (int ii = 0; ii < BackData.query.length; ii++){
-			termQDex.put(BackData.query[ii],ii);
-//			System.out.println(BackData.query[ii] + " " +ii);
-		}
-		for (int ii = 0; ii < docList.length; ii++){ // for entire processed data set, may delete later
-			docuDex.put(docList[ii], ii);
-//			System.out.println(docList[ii] + " " +ii);
-		}
-	}
-	
-	/**
-	 * ====================
-	 * ScanForFreq
-	 * 	 
-	 * 	Description
-	 * 	takes line from document and fills TF and TFQ array
-	 * ====================	
-	 */
-	public void ScanForFreq(String line, String docName) {
-		//System.out.println(line);
-		String[] tokens = line.split("\\W"); //break into words
-		for (int ii = 0; ii < tokens.length; ii++){// loop through tokens/words
-			for (int jj = 0; jj < mostFrequentTerms.length; jj++){ // see if query is in line
-				if (Objects.equals(mostFrequentTerms[jj], tokens[ii])) { // if word is within top 1000
-					Integer termIndex = termDex.get(tokens[ii]);
-					Integer docuIndex = docuDex.get(docName);
-//					System.out.println(termIndex);
-					if (TermFreq[termIndex][docuIndex] == 0) TermFreq[termIndex][docuIndex] = 1;
-					else TermFreq[termIndex][docuIndex]++; // add one to TermFreq 
-//					System.out.println(TermFreq[termIndex][docuIndex]);
-				}
+		
+		//get documents that contain query using inverted index
+		//build a TF-IDF matrix with size numDocs x terms
+		
+		// build term frequency so that it starts off with doc:<term 0 tf.idf, term 1 tf.idf...,term 99 tf.idf>
+		for (int ii =0; ii < BackData.numDocs; ii ++){
+			for (int jj = 0; jj < BackData.query.length; jj++){
+				double d = tf() * idf();
 			}
-			for (int jj = 0; jj < BackData.query.length; jj++){ // see if query is in line
-//				System.out.println(tokens[ii]);
-//				System.out.println(Q[jj]);
-				if (Objects.equals((String)BackData.query[jj], (String)tokens[ii])){//
-					Integer termIndexQ = termQDex.get(BackData.query[jj]);
-					Integer docuIndexQ = docuDex.get(docName);
-					if (TermFreqQ[termIndexQ][docuIndexQ] == 0) TermFreqQ[termIndexQ][docuIndexQ] = 1;
-					else TermFreqQ[termIndexQ][docuIndexQ]++; // add one to TermFreqQ
-				}
-			} 
 		}
-		
-//			for (int ii1 =0; ii1 < MostFrequent.length; ii1++){
-//		System.out.print(" "+ TermFreqQ[ii1] + " ");
-//		}
-//	System.out.println("");
-
 	}
-
+	
+	public void documentsContainQuery(){
+		
+	}
+	
+	public double tf(){
+		double a = 1;
+		return a;
+	}
+	
+	public double idf(){
+		double a = 1;
+		return a;
+	}
+	
 	/**
 	 * ====================
 	 * VectorSpaceOut
@@ -146,17 +79,11 @@ public class VectorSpaceModel {
 	 * 	outputs vectorspace model and prints
 	 * ====================	
 	 */
-	public double[][] VectorSpaceOut(int print){
+	public void VectorSpaceOut(int print){
 		if (print == 1){
-			System.out.println("VectorSpaceModel");
-			for (int jj = 0; jj < mostFrequentTerms.length; jj++){
-				for (int ii =0; ii < N; ii++){
-					System.out.print(VectorSpace[jj][ii] + " ");
-				}
-				System.out.println("");
-			}
+			System.out.println("VectorSpaceModel TD-IDF");
+			
 		}
-		return VectorSpace;
 	}
 	/**
 	 * ====================
