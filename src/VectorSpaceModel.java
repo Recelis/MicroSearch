@@ -45,8 +45,9 @@ public class VectorSpaceModel {
 	public void vectorTFIDF(){	
 		tfidfMatrix = new int[BackData.query.length][BackData.numDocs];
 		for (int ii =0; ii < BackData.query.length; ii++){
+			double idfOut = idf(BackData.query[ii]);
 			for (int jj =0; jj < BackData.numDocs; jj ++){
-				double d = tf(BackData.query[ii]) * idf(BackData.query[ii]);
+				double d = tf(BackData.query[ii]) * idfOut;
 				
 			}
 		}
@@ -71,7 +72,13 @@ public class VectorSpaceModel {
 	
 	public double idf(String query){
 		//numDocs
-		double nk = InvertedIndex.invertedIndex.get(query).size();//number of documents containing term k
+		double nk;//number of documents containing term k
+		if (InvertedIndex.invertedIndex.get(query) == null){
+			return 0;
+		} else{
+			nk = InvertedIndex.invertedIndex.get(query).size();
+		}
+		System.out.println(nk);
 		return Math.log(BackData.numDocs/nk);
 	}
 	
