@@ -22,7 +22,7 @@ import java.lang.Math;
  * ====================	
  */
 public class VectorSpaceModel {
-	int[][] tfidfMatrix; // used for idf number of docs per term
+	double[][] tfidfMatrix; // used for idf number of docs per term
 	String[] listDocs;
 	/**
 	 * ====================
@@ -43,14 +43,19 @@ public class VectorSpaceModel {
 	 * ====================	
 	 */
 	public void vectorTFIDF(){	
-		tfidfMatrix = new int[BackData.query.length][BackData.numDocs];
+		tfidfMatrix = new double[BackData.query.length][BackData.numDocs];
 		for (int ii =0; ii < BackData.query.length; ii++){
 			double idfOut = idf(BackData.query[ii]);
 			for (int jj =0; jj < BackData.numDocs; jj ++){
-				double d = tf(BackData.query[ii]) * idfOut;
-				
+				if (InvertedIndex.invertedIndex.get(BackData.query[ii]) == null){
+					tfidfMatrix[ii][jj] = 0;
+				} else{
+					String docName = BackData.KeysAfter.get(jj);
+					tfidfMatrix[ii][jj] = tf(BackData.query[ii], docName) * idfOut;
+				}	
 			}
 		}
+		VectorSpaceOut(1);
 		//get documents that contain query using inverted index
 		//build a TF-IDF matrix with size numDocs x terms
 		
@@ -63,11 +68,17 @@ public class VectorSpaceModel {
 		
 	}
 	
-	public double tf(String query){
-		// number of term k in doc i
+	public double tf(String query, String docName){
+		double fik;// number of term k in doc i
+
+		if (InvertedIndex.invertedIndex.get(query).containsKey(docName) == false){
+			return 0;
+		} else{
+			fik = InvertedIndex.invertedIndex.get(query).get(docName);
+		}
 		// number of all terms in doc i
-		double a = 1;
-		return a;
+		System.out.println(fik);
+		return fik;
 	}
 	
 	public double idf(String query){
@@ -93,7 +104,12 @@ public class VectorSpaceModel {
 	public void VectorSpaceOut(int print){
 		if (print == 1){
 			System.out.println("VectorSpaceModel TD-IDF");
-			
+			for (int ii = 0; ii < BackData.query.length; ii++){
+				for (int jj =0; jj < BackData.numDocs; jj++){
+					System.out.print(tfidfMatrix[ii][jj] + " ");
+				}
+				System.out.println("");
+			}
 		}
 	}
 	/**
