@@ -46,16 +46,23 @@ public class VectorSpaceModel {
 		tfidfMatrix = new double[BackData.query.length][BackData.numDocs];
 		for (int ii =0; ii < BackData.query.length; ii++){
 			double idfOut = idf(BackData.query[ii]);
+			int tfidfSwitch = 0;
+			System.out.println("idfout" + idfOut);
+			System.out.println(InvertedIndex.invertedIndex.get(BackData.query[ii]));
+			if (InvertedIndex.invertedIndex.get(BackData.query[ii]) == null){ //makes tfidf more efficient
+				tfidfSwitch = 1;
+			}
 			for (int jj =0; jj < BackData.numDocs; jj ++){
-				if (InvertedIndex.invertedIndex.get(BackData.query[ii]) == null){
-					tfidfMatrix[ii][jj] = 0;
-				} else{
-					String docName = BackData.KeysAfter.get(jj);
+				if (tfidfSwitch == 1){
+					tfidfMatrix[ii][jj] = 0; // fills tfidfMatrix, no extra calcs
+				} else{	
+					String docName = BackData.KeysAfter.get(jj); // THIS LINE IS FAULTY!
 					tfidfMatrix[ii][jj] = tf(BackData.query[ii], docName) * idfOut;
+					System.out.println(docName);
 				}	
 			}
 		}
-		VectorSpaceOut(1);
+		VectorSpaceOut(0);
 		//get documents that contain query using inverted index
 		//build a TF-IDF matrix with size numDocs x terms
 		
@@ -77,7 +84,7 @@ public class VectorSpaceModel {
 			fik = InvertedIndex.invertedIndex.get(query).get(docName);
 		}
 		// number of all terms in doc i
-		System.out.println(fik);
+		System.out.println("fik" + fik);
 		return fik;
 	}
 	
@@ -89,7 +96,6 @@ public class VectorSpaceModel {
 		} else{
 			nk = InvertedIndex.invertedIndex.get(query).size();
 		}
-		System.out.println(nk);
 		return Math.log(BackData.numDocs/nk);
 	}
 	
