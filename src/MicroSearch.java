@@ -60,7 +60,7 @@ public class MicroSearch {
 //		int jj = 0;
 //		String name;
 //		vfile.DirectContents(DataDirectory+"Out");
-		String[] docList = vfile.directoryNames; 
+//		String[] docList = BackData.directoryNames; 
 //		vectorSpace.VectorSpaceLookUp(docList); // namesList
 //		for (int ii = 0 ; ii < BackData.numDocs; ii++){
 //			name = vfile.directoryNames[ii];
@@ -96,7 +96,7 @@ public class MicroSearch {
 	public static void readInDocs(){
 		try{ 
 			nfile.DirectContents(DataDirectory); // get list of directory contents
-			BackData.numDocs = nfile.directoryNames.length;
+			BackData.numDocs = BackData.directoryNames.length;
 		}
 		catch (NullPointerException npe) {
 				 System.out.println("IOE");
@@ -117,7 +117,7 @@ public class MicroSearch {
 		// Vector Space
 		vectorSpace = new VectorSpaceModel();
 		for(int ii = 0; ii < BackData.numDocs;ii++){ // loop through each document in directory
-			name = Files.directoryNames[ii];
+			name = BackData.directoryNames[ii];
 			nfile.ReadIn(DataDirectory + "/" + name);
 			nfile.fileContents.clear(); // clear fileContents for each previous file
 			nfile.processLine(name);

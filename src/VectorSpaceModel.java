@@ -56,9 +56,8 @@ public class VectorSpaceModel {
 				if (tfidfSwitch == 1){
 					tfidfMatrix[ii][jj] = 0; // fills tfidfMatrix, no extra calcs
 				} else{	
-					String docName = BackData.KeysAfter.get(jj); // THIS LINE IS FAULTY!
+					String docName = BackData.directoryNames[jj]; 
 					tfidfMatrix[ii][jj] = tf(BackData.query[ii], docName) * idfOut;
-					System.out.println(docName);
 				}	
 			}
 		}

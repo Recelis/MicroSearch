@@ -1,11 +1,12 @@
 import java.io.*;
 import java.util.*;
 
+import Storage.BackData;
+
 
 public class Files {
 	private static Processing PreProcessing = new Processing();
 	static InvertedIndex index = new InvertedIndex();
-	static public String[] directoryNames;
 	public ArrayList<String> fileContents = new ArrayList<String>();
 	public String[] fileArray;
 	public String[] newFileArray;
@@ -34,7 +35,20 @@ public class Files {
 	 */
 	public void DirectContents(String direct){ // Read Directory contents
 		File Folder = new File(direct);
-		directoryNames = Folder.list();	
+		BackData.directoryNames = Folder.list();	
+	}
+	/**
+	 * ====================
+	 * printDirectoryNames
+	 * 	 
+	 * 	Description
+	 * 	prints all of the files in directory
+	 * ====================	
+	 */
+	public void printDirectoryNames(){
+		for (int ii =0; ii < BackData.numDocs; ii ++){
+			System.out.println(BackData.directoryNames[ii]);
+		}
 	}
 	/**
 	 * ====================
