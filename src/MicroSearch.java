@@ -55,7 +55,7 @@ public class MicroSearch {
 //		int[][] HashArray = PreProcessing.returnHashArray();
 //		String[] query = search.returnKeyWords();
 		vectorSpace.vectorTFIDF();
-//		
+//		nfile.printDirectoryNames();
 //		//loop through documents to build vector space model
 //		int jj = 0;
 //		String name;

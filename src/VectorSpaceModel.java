@@ -23,6 +23,7 @@ import java.lang.Math;
  */
 public class VectorSpaceModel {
 	double[][] tfidfMatrix; // used for idf number of docs per term
+	double[][] qVector;
 	String[] listDocs;
 	/**
 	 * ====================
@@ -44,36 +45,38 @@ public class VectorSpaceModel {
 	 */
 	public void vectorTFIDF(){	
 		tfidfMatrix = new double[BackData.query.length][BackData.numDocs];
-		for (int ii =0; ii < BackData.query.length; ii++){
-			double idfOut = idf(BackData.query[ii]);
-			int tfidfSwitch = 0;
-			System.out.println("idfout" + idfOut);
-			System.out.println(InvertedIndex.invertedIndex.get(BackData.query[ii]));
-			if (InvertedIndex.invertedIndex.get(BackData.query[ii]) == null){ //makes tfidf more efficient
-				tfidfSwitch = 1;
-			}
-			for (int jj =0; jj < BackData.numDocs; jj ++){
-				if (tfidfSwitch == 1){
-					tfidfMatrix[ii][jj] = 0; // fills tfidfMatrix, no extra calcs
-				} else{	
-					String docName = BackData.directoryNames[jj]; 
-					tfidfMatrix[ii][jj] = tf(BackData.query[ii], docName) * idfOut;
-				}	
-			}
-		}
-		VectorSpaceOut(0);
+//		for (int ii =0; ii < BackData.query.length; ii++){
+//			double idfOut = idf(BackData.query[ii]);
+//			int tfidfSwitch = 0;
+//			if (InvertedIndex.invertedIndex.get(BackData.query[ii]) == null){ //makes tfidf more efficient
+//				tfidfSwitch = 1;
+//			}
+//			for (int jj =0; jj < BackData.numDocs; jj ++){
+//				if (tfidfSwitch == 1){
+//					tfidfMatrix[ii][jj] = 0; // fills tfidfMatrix, no extra calcs
+//				} else{	
+//					String docName = BackData.directoryNames[jj]; 
+//					tfidfMatrix[ii][jj] = tf(BackData.query[ii], docName) * idfOut;
+//				}	
+//			}
+//		}
+		VectorSpaceOut(1);
 		//get documents that contain query using inverted index
 		//build a TF-IDF matrix with size numDocs x terms
-		
 		// build term frequency so that it starts off with doc:<term 0 tf.idf, term 1 tf.idf...,term 99 tf.idf>
-		
-		
 	}
 	
-	public void documentsContainQuery(){
-		
+	public void documentsContainingQuery(){
+//		InvertedIndex.invertedIndex // loop through hashtable
+		// if document present skip
+		// if document not present, add to list
+		// return queryDocNum;
+		// return queryDocs;
 	}
 	
+	public void settingQVector(){
+		// set qVector to queryDocNum
+	}
 	public double tf(String query, String docName){
 		double fik;// number of term k in doc i
 
@@ -83,7 +86,7 @@ public class VectorSpaceModel {
 			fik = InvertedIndex.invertedIndex.get(query).get(docName);
 		}
 		// number of all terms in doc i
-		System.out.println("fik" + fik);
+//		System.out.println("fik" + fik);
 		return fik;
 	}
 	
@@ -117,81 +120,11 @@ public class VectorSpaceModel {
 			}
 		}
 	}
-	/**
-	 * ====================
-	 * DocsPerTerm
-	 * 	 
-	 * 	Description
-	 * 	calculates the number of documents 
-	 *  that each term appears in 
-	 * ====================	
-	 */
-//	private void DocsPerTerm(){
-//		for (int ii =0; ii < mostFrequentTerms.length; ii++){//each term
-//			for (int jj = 0; jj < N; jj++){ // each document
-//				if (TermFreq[ii][jj] > 0) TermDocFreq[ii]++;
-//				if (TermFreqQ[ii][jj] > 0) TermDocFreqQ[ii]++;
-//			}System.out.println(TermDocFreqQ[ii]);
-//		}
-//	}
-	/**
-	 * ====================
-	 * PropagateVectorSpace
-	 * 	 
-	 * 	Description
-	 * 	fill VectorSpace with tf.idf 
-	 * ====================	
-	 */
-//	private void PropagateVectorSpace(){
-//		DocsPerTerm(); // build freqDocs
-//		for (int jj = 0; jj<N; jj++){ // per doc
-//			double SIGMAfij = 0; 
-//			for(int ii= 0; ii < mostFrequentTerms.length; ii++){
-//				SIGMAfij = SIGMAfij + TermFreq[ii][jj];
-//			}
-//			for(int ii= 0; ii < mostFrequentTerms.length; ii++){
-//				double tf;
-//				double idf;
-//				if (SIGMAfij == 0) tf = 0;
-//				else tf = (double)(TermFreq[ii][jj])/SIGMAfij;
-//				if (TermDocFreq[ii] == 0) idf = 0;
-//				else idf = Math.log10(N/TermDocFreq[ii]);
-//				VectorSpace[ii][jj] = tf*idf;
-//			}
-//		}
-//	}
-	/**
-	 * ====================
-	 * PropagateVectorSpaceQ
-	 * 	 
-	 * 	Description
-	 * 	fill VectorSpace with tf.idf 
-	 * ====================	
-	 */
-//	private void PropagateVectorSpaceQ(){
-//		DocsPerTerm(); // build freqDocs
-//			double SIGMAfijq = 0; 
-//			for(int ii= 0; ii < BackData.query.length; ii++){
-//				SIGMAfijq = SIGMAfijq + TermDocFreqQ[ii];
-//			}
-////			System.out.println(SIGMAfijq);
-//			for(int ii= 0; ii < mostFrequentTerms.length; ii++){
-//				double idf = 0;
-//				if (TermDocFreqQ[ii] == 0) idf = 1;
-//				else{
-//					idf = Math.log10(N/TermDocFreqQ[ii]);
-//					System.out.println("df"+idf);
-//					System.out.println("N"+N);
-//					System.out.println(TermDocFreqQ[ii]);
-//				}
-//				VectorSpaceQ[ii] = idf;
-////				System.out.println(idf);
-////				System.out.println(N);
-//				
-//			}
-//	}
-//	
-//	public String[] CosineCalc(){
+	
+	public String[] CosineCalc(){
+		
+		return listDocs;
+		
 //		PropagateVectorSpace();
 //		PropagateVectorSpaceQ();
 //		double[] rankedList = new double[N];
@@ -241,5 +174,5 @@ public class VectorSpaceModel {
 //			System.out.println(" index: "+ rankTable.get(rankedList[ii]));
 //		}
 //		return rankedDocs;
-//	}
+	}
 }
