@@ -1,9 +1,11 @@
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -25,6 +27,7 @@ public class VectorSpaceModel {
 	double[][] tfidfMatrix; // used for idf number of docs per term
 	double[][] qVector;
 	String[] listDocs;
+	Map<String, Integer> docsContainQuery = new HashMap<String, Integer>();
 	/**
 	 * ====================
 	 * Constructor
@@ -66,13 +69,47 @@ public class VectorSpaceModel {
 		// build term frequency so that it starts off with doc:<term 0 tf.idf, term 1 tf.idf...,term 99 tf.idf>
 	}
 	
-	public void documentsContainingQuery(){
-//		InvertedIndex.invertedIndex // loop through hashtable
-		// if document present skip
-		// if document not present, add to list
-		// return queryDocNum;
-		// return queryDocs;
+	public void queryTFIDF(){
+		
 	}
+	
+	private void fillDocsContainQuery(){
+		for (int ii = 0; ii < BackData.directoryNames.length; ii++){// fill queryDocNum as all zeros initially
+			docsContainQuery.put(BackData.directoryNames[ii], 0);
+		}
+	}
+	public int documentsContainingQuery(){
+		fillDocsContainQuery();
+		int queryDocNum = 0;
+		for (int ii =0; ii < BackData.query.length; ii++){
+			if (InvertedIndex.invertedIndex.get(BackData.query[ii]) != null){ // see if query shows up in documents
+				Enumeration<String> fileNamesContainQueryN= InvertedIndex.invertedIndex.get(BackData.query[ii]).keys();
+				for (int jj =0; jj < InvertedIndex.invertedIndex.get(BackData.query[ii]).size(); jj++){
+					String fileName = fileNamesContainQueryN.nextElement(); // get directoryName
+					int count = docsContainQuery.get(fileName); // get current count of query in docsContainQuery
+					int newCount = count + InvertedIndex.invertedIndex.get(BackData.query[ii]).get(fileName);
+					System.out.println("newCount " + newCount);
+					if (docsContainQuery.get(fileName)==0){
+						queryDocNum++;
+					}
+					docsContainQuery.put(fileName, newCount);
+				}	
+			}
+		}
+		System.out.println("queryDocNum is " + queryDocNum);
+		printDocsContainQuery(queryDocNum);
+		return queryDocNum;
+	}
+	
+	private void printDocsContainQuery(int queryDocNum){
+		Set<String> filesNames =docsContainQuery.keySet();
+		Iterator<String> iterate = filesNames.iterator();
+		for (int ii =0; ii < queryDocNum; ii++){
+			String file = iterate.next();
+			System.out.println(file + " " + docsContainQuery.get(file));
+		}
+	}
+		
 	
 	public void settingQVector(){
 		// set qVector to queryDocNum
