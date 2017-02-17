@@ -39,6 +39,7 @@ public class VectorSpaceModel {
 	 */
 	public VectorSpaceModel() {
 	}
+	
 	/**
 	 * ====================
 	 * vectorTFIDF
@@ -50,7 +51,22 @@ public class VectorSpaceModel {
 	 *  build term frequency so that it starts off with doc:<term 0 tf.idf, term 1 tf.idf...,term 99 tf.idf>
 	 * ====================	
 	 */
-	public void vectorTFIDF(){
+	public void runVectorSpaceModel(){
+		vectorTFIDF();
+		queryTFIDF();
+	}
+	/**
+	 * ====================
+	 * vectorTFIDF
+	 * 	 
+	 * 	Description
+	 * 	builds a td-idf matrix with documents to terms
+	 * 	get documents that contain query using inverted index
+	 *	build a TF-IDF matrix with size numDocs x terms
+	 *  build term frequency so that it starts off with doc:<term 0 tf.idf, term 1 tf.idf...,term 99 tf.idf>
+	 * ====================	
+	 */
+	private void vectorTFIDF(){
 		queryDocNum = documentsContainingQuery();
 		System.out.println("queryDocNum is " + queryDocNum + "number of terms" + (int) BackData.vocabAfter + "integermax " + Integer.MAX_VALUE);
 		tfidfMatrix = new double[queryDocNum][(int) BackData.vocabAfter]; // okay up to 2147483647, may need to be scaled after
@@ -75,7 +91,7 @@ public class VectorSpaceModel {
 	 *  This will be structured like tf-idf of query
 	 * ====================	
 	 */	
-	public void queryTFIDF(){
+	private void queryTFIDF(){
 		qVector = new double[(int) BackData.vocabAfter];
 		// fill with zeros initially
 		for (int ii =0; ii < BackData.vocabAfter; ii++){
@@ -87,7 +103,6 @@ public class VectorSpaceModel {
 				qVector[index] = idf(BackData.query[ii]);
 			}
 		}
-		
 	}
 	/**
 	 * ====================
@@ -164,7 +179,7 @@ public class VectorSpaceModel {
 	 * 	returns the term frequency 
 	 * ====================	
 	 */
-	public double tf(String term, String docName){
+	private double tf(String term, String docName){
 		double fik;// number of term k in doc i
 
 		if (InvertedIndex.invertedIndex.get(term).containsKey(docName) == false){
@@ -185,7 +200,7 @@ public class VectorSpaceModel {
 	 * 	returns the inverse document frequency
 	 * ====================	
 	 */
-	public double idf(String term){
+	private double idf(String term){
 		//numDocs
 		double nk;//number of documents containing term k
 		if (InvertedIndex.invertedIndex.get(term) == null){
@@ -204,7 +219,7 @@ public class VectorSpaceModel {
 	 * 	outputs vectorspace model and prints
 	 * ====================	
 	 */
-	public void VectorSpaceOut(int print){
+	private void VectorSpaceOut(int print){
 		if (print == 1){
 			System.out.println("VectorSpaceModel TD-IDF");
 			for (int ii = 0; ii < tfidfMatrix.length; ii++){
@@ -216,7 +231,7 @@ public class VectorSpaceModel {
 		}
 	}
 	
-	public String[] CosineCalc(){
+	private String[] CosineCalc(){
 		
 		return listDocs;
 		

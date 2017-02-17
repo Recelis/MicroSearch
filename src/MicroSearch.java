@@ -54,7 +54,7 @@ public class MicroSearch {
 //		List<String> Terms = PreProcessing.ReturnKeys();
 //		int[][] HashArray = PreProcessing.returnHashArray();
 //		String[] query = search.returnKeyWords();
-		vectorSpace.vectorTFIDF();
+		vectorSpace.runVectorSpaceModel();
 //		vectorSpace.documentsContainingQuery();
 //		nfile.printDirectoryNames();
 //		//loop through documents to build vector space model
