@@ -28,6 +28,7 @@ public class VectorSpaceModel {
 	double[][] qVector;
 	String[] listDocs;
 	Map<String, Integer> docsContainQuery = new HashMap<String, Integer>();
+	int queryDocNum;
 	/**
 	 * ====================
 	 * Constructor
@@ -46,23 +47,20 @@ public class VectorSpaceModel {
 	 * 	builds a td-idf matrix with documents that contain the query
 	 * ====================	
 	 */
-	public void vectorTFIDF(){	
-		tfidfMatrix = new double[BackData.query.length][BackData.numDocs];
-//		for (int ii =0; ii < BackData.query.length; ii++){
-//			double idfOut = idf(BackData.query[ii]);
-//			int tfidfSwitch = 0;
-//			if (InvertedIndex.invertedIndex.get(BackData.query[ii]) == null){ //makes tfidf more efficient
-//				tfidfSwitch = 1;
-//			}
-//			for (int jj =0; jj < BackData.numDocs; jj ++){
-//				if (tfidfSwitch == 1){
-//					tfidfMatrix[ii][jj] = 0; // fills tfidfMatrix, no extra calcs
-//				} else{	
-//					String docName = BackData.directoryNames[jj]; 
-//					tfidfMatrix[ii][jj] = tf(BackData.query[ii], docName) * idfOut;
-//				}	
-//			}
-//		}
+	public void vectorTFIDF(){
+		queryDocNum = documentsContainingQuery();
+		System.out.println("queryDocNum is " + queryDocNum + "number of terms" + (int) BackData.vocabAfter + "integermax " + Integer.MAX_VALUE);
+		tfidfMatrix = new double[queryDocNum][(int) BackData.vocabAfter]; // okay up to 2147483647, may need to be scaled after
+		Iterator<String> docContainQIterate = docsContainQuery.keySet().iterator();
+		
+		for (int ii =0; ii < queryDocNum; ii++){ // loop through docs
+			String docName = docContainQIterate.next();
+			Iterator<String> termIterator = BackData.KeysAfter.iterator();
+			for (int jj =0; jj < BackData.vocabAfter; jj ++){ // loop through terms
+				String term = termIterator.next();
+				tfidfMatrix[ii][jj] = tf(term, docName) * idf(term);
+			}	
+		}
 		VectorSpaceOut(1);
 		//get documents that contain query using inverted index
 		//build a TF-IDF matrix with size numDocs x terms
@@ -78,7 +76,7 @@ public class VectorSpaceModel {
 			docsContainQuery.put(BackData.directoryNames[ii], 0);
 		}
 	}
-	public int documentsContainingQuery(){
+	private int documentsContainingQuery(){
 		fillDocsContainQuery();
 		int queryDocNum = 0;
 		for (int ii =0; ii < BackData.query.length; ii++){
@@ -135,7 +133,7 @@ public class VectorSpaceModel {
 		} else{
 			nk = InvertedIndex.invertedIndex.get(query).size();
 		}
-		return Math.log(BackData.numDocs/nk);
+		return Math.log(queryDocNum/nk);
 	}
 	
 	/**
@@ -149,8 +147,8 @@ public class VectorSpaceModel {
 	public void VectorSpaceOut(int print){
 		if (print == 1){
 			System.out.println("VectorSpaceModel TD-IDF");
-			for (int ii = 0; ii < BackData.query.length; ii++){
-				for (int jj =0; jj < BackData.numDocs; jj++){
+			for (int ii = 0; ii < tfidfMatrix.length; ii++){
+				for (int jj =0; jj < tfidfMatrix[0].length; jj++){
 					System.out.print(tfidfMatrix[ii][jj] + " ");
 				}
 				System.out.println("");
