@@ -25,7 +25,7 @@ import java.lang.Math;
  */
 public class VectorSpaceModel {
 	double[][] tfidfMatrix; // used for idf number of docs per term
-	double[][] qVector;
+	double[] qVector;
 	String[] listDocs;
 	Map<String, Integer> docsContainQuery = new HashMap<String, Integer>();
 	int queryDocNum;
@@ -44,7 +44,10 @@ public class VectorSpaceModel {
 	 * vectorTFIDF
 	 * 	 
 	 * 	Description
-	 * 	builds a td-idf matrix with documents that contain the query
+	 * 	builds a td-idf matrix with documents to terms
+	 * 	get documents that contain query using inverted index
+	 *	build a TF-IDF matrix with size numDocs x terms
+	 *  build term frequency so that it starts off with doc:<term 0 tf.idf, term 1 tf.idf...,term 99 tf.idf>
 	 * ====================	
 	 */
 	public void vectorTFIDF(){
@@ -61,21 +64,56 @@ public class VectorSpaceModel {
 				tfidfMatrix[ii][jj] = tf(term, docName) * idf(term);
 			}	
 		}
-		VectorSpaceOut(1);
-		//get documents that contain query using inverted index
-		//build a TF-IDF matrix with size numDocs x terms
-		// build term frequency so that it starts off with doc:<term 0 tf.idf, term 1 tf.idf...,term 99 tf.idf>
+		VectorSpaceOut(0);
 	}
-	
+	/**
+	 * ====================
+	 * queryTFIDF
+	 * 	 
+	 * 	Description
+	 * 	This is a 1 x queryDocNum sized vector
+	 *  This will be structured like tf-idf of query
+	 * ====================	
+	 */	
 	public void queryTFIDF(){
+		qVector = new double[(int) BackData.vocabAfter];
+		// fill with zeros initially
+		for (int ii =0; ii < BackData.vocabAfter; ii++){
+			qVector[ii] = 1; // according my lecture slides 
+		}
+		for (int ii =0; ii < BackData.query.length; ii++){
+			int index = BackData.KeysAfter.indexOf(BackData.query[ii]); // KeysAfter corresponds with qVector locations
+			if (index >= 0){
+				qVector[index] = idf(BackData.query[ii]);
+			}
+		}
 		
 	}
-	
+	/**
+	 * ====================
+	 * fillDocsContainQuery
+	 * 	 
+	 * 	Description
+	 * 	This function initially fills the hash map values as 0
+	 *  before counting of terms in docs has begun
+	 * ====================	
+	 */	
 	private void fillDocsContainQuery(){
 		for (int ii = 0; ii < BackData.directoryNames.length; ii++){// fill queryDocNum as all zeros initially
 			docsContainQuery.put(BackData.directoryNames[ii], 0);
 		}
 	}
+	
+	/**
+	 * ====================
+	 * documentsContainingQuery
+	 * 	 
+	 * 	Description
+	 * 	This function counts the number of documents containing the query terms
+	 *  It also fills the docsContainQuery hashmap that contains the number of appearances of docs 
+	 *  in query.
+	 * ====================	
+	 */	
 	private int documentsContainingQuery(){
 		fillDocsContainQuery();
 		int queryDocNum = 0;
@@ -95,43 +133,65 @@ public class VectorSpaceModel {
 			}
 		}
 		System.out.println("queryDocNum is " + queryDocNum);
-		printDocsContainQuery(queryDocNum);
+		printDocsContainQuery(1,queryDocNum);
 		return queryDocNum;
 	}
 	
-	private void printDocsContainQuery(int queryDocNum){
-		Set<String> filesNames =docsContainQuery.keySet();
-		Iterator<String> iterate = filesNames.iterator();
-		for (int ii =0; ii < queryDocNum; ii++){
-			String file = iterate.next();
-			System.out.println(file + " " + docsContainQuery.get(file));
+	/**
+	 * ====================
+	 * printDocsContainQuery
+	 * 	 
+	 * 	Description
+	 * 	Prints the docsContainQuery hashmap
+	 * ====================	
+	 */	
+	private void printDocsContainQuery(int printSwitch, int queryDocNum){
+		if (printSwitch == 1){
+			Set<String> filesNames =docsContainQuery.keySet();
+			Iterator<String> iterate = filesNames.iterator();
+			for (int ii =0; ii < queryDocNum; ii++){
+				String file = iterate.next();
+				System.out.println(file + " " + docsContainQuery.get(file));
+			}
 		}
 	}
 		
-	
-	public void settingQVector(){
-		// set qVector to queryDocNum
-	}
-	public double tf(String query, String docName){
+	/**
+	 * ====================
+	 * tf
+	 * 	 
+	 * 	Description
+	 * 	returns the term frequency 
+	 * ====================	
+	 */
+	public double tf(String term, String docName){
 		double fik;// number of term k in doc i
 
-		if (InvertedIndex.invertedIndex.get(query).containsKey(docName) == false){
+		if (InvertedIndex.invertedIndex.get(term).containsKey(docName) == false){
 			return 0;
 		} else{
-			fik = InvertedIndex.invertedIndex.get(query).get(docName);
+			fik = InvertedIndex.invertedIndex.get(term).get(docName);
 		}
 		// number of all terms in doc i
 //		System.out.println("fik" + fik);
 		return fik;
 	}
 	
-	public double idf(String query){
+	/**
+	 * ====================
+	 * idf
+	 * 	 	 
+	 * 	Description
+	 * 	returns the inverse document frequency
+	 * ====================	
+	 */
+	public double idf(String term){
 		//numDocs
 		double nk;//number of documents containing term k
-		if (InvertedIndex.invertedIndex.get(query) == null){
+		if (InvertedIndex.invertedIndex.get(term) == null){
 			return 0;
 		} else{
-			nk = InvertedIndex.invertedIndex.get(query).size();
+			nk = InvertedIndex.invertedIndex.get(term).size();
 		}
 		return Math.log(queryDocNum/nk);
 	}
