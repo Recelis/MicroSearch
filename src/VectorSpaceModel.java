@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeMap;
 
 import Storage.BackData;
 
@@ -29,6 +30,7 @@ public class VectorSpaceModel {
 	String[] listDocs;
 	Map<String, Integer> docsContainQuery = new HashMap<String, Integer>();
 	int queryDocNum;
+	TreeMap cosTreeMap;
 	/**
 	 * ====================
 	 * Constructor
@@ -54,6 +56,7 @@ public class VectorSpaceModel {
 	public void runVectorSpaceModel(){
 		vectorTFIDF();
 		queryTFIDF();
+		cosineCalc();
 	}
 	/**
 	 * ====================
@@ -139,7 +142,7 @@ public class VectorSpaceModel {
 					String fileName = fileNamesContainQueryN.nextElement(); // get directoryName
 					int count = docsContainQuery.get(fileName); // get current count of query in docsContainQuery
 					int newCount = count + InvertedIndex.invertedIndex.get(BackData.query[ii]).get(fileName);
-					System.out.println("newCount " + newCount);
+//					System.out.println("newCount " + newCount);
 					if (docsContainQuery.get(fileName)==0){
 						queryDocNum++;
 					}
@@ -231,58 +234,28 @@ public class VectorSpaceModel {
 		}
 	}
 	
-	private String[] CosineCalc(){
+	
+	/**
+	 * ====================
+	 * CosineCalc
+	 * 	 
+	 * 	Description
+	 * 	calculates the array containing all of the cosines 
+	 * ====================	
+	 */
+	private String[] cosineCalc(){
+		cosTreeMap = new TreeMap<Integer, String>();
+		Iterator<String> docNamesContainQuery = docsContainQuery.keySet().iterator();
+		for (int ii = 0; ii < queryDocNum; ii++){
+			String docNameQuery = docNamesContainQuery.next();  
+			System.out.println(docNameQuery);
+//			cosTreeMap.push();
+		}
 		
 		return listDocs;
-		
-//		PropagateVectorSpace();
-//		PropagateVectorSpaceQ();
-//		double[] rankedList = new double[N];
-//		Hashtable<Double, Integer> rankTable = new Hashtable<Double, Integer>(); 
-//		double dotProduct = 0;
-//		for (int ii =0; ii < N; ii++){ // docs
-//			double Dmag = 0;
-//			double Qmag = 0;
-//			for (int jj = 0; jj < mostFrequentTerms.length; jj++){
-//				Dmag = Dmag + Math.pow(VectorSpace[jj][ii], 2);
-//				Qmag = Qmag + Math.pow(VectorSpaceQ[jj], 2);
-//			}
-//			double denominator = Math.sqrt(Dmag*Qmag);
-//			//dotProduct
-//			for (int jj = 0; jj < mostFrequentTerms.length; jj++){
-//				dotProduct += VectorSpace[jj][ii]*VectorSpaceQ[jj];
-////				System.out.println(VectorSpace[jj]);
-////				System.out.println(VectorSpaceQ[jj]);
-//			}
-//			if (dotProduct == 0 || denominator == 0){
-//				dotProduct = 0;
-//				denominator = 0;
-//			} else rankedList[ii] = dotProduct/denominator;
-////			System.out.println(dotProduct);
-////			System.out.println(denominator);
-//			rankTable.put(rankedList[ii], ii);
-//			//reset variables
-//			dotProduct = 0;
-//			
-//		}
-//		//sort list
-//		Arrays.sort(rankedList);
-//		// put into descending order
-//		double[] tempRanked = rankedList.clone();
-//		for (int ii =0; ii < rankedList.length; ii++){
-//			tempRanked[ii] = rankedList[rankedList.length-ii-1];
-//			//System.out.println(tempRanked[ii]);
-//		}
-//		rankedList = tempRanked.clone();
-//		rankedList = Arrays.copyOfRange(rankedList, 0, 10);
-//		String[] rankedDocs = new String[rankedList.length];
-//		for(int ii =0; ii < rankedList.length; ii++){
-//			Integer index = rankTable.get(rankedList[ii]);
-//			rankedDocs[ii] = listDocs[index];
-//			System.out.print(rankedDocs[ii]+" ");
-//			System.out.print(rankedList[ii]);
-//			System.out.println(" index: "+ rankTable.get(rankedList[ii]));
-//		}
-//		return rankedDocs;
+	}
+	
+	private String[] returnRankedList(){
+		return listDocs;
 	}
 }
