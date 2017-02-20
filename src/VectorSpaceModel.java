@@ -243,16 +243,29 @@ public class VectorSpaceModel {
 	 * 	calculates the array containing all of the cosines 
 	 * ====================	
 	 */
-	private String[] cosineCalc(){
+	private TreeMap<Integer, String> cosineCalc(){
 		cosTreeMap = new TreeMap<Integer, String>();
 		Iterator<String> docNamesContainQuery = docsContainQuery.keySet().iterator();
 		for (int ii = 0; ii < queryDocNum; ii++){
 			String docNameQuery = docNamesContainQuery.next();  
 			System.out.println(docNameQuery);
-//			cosTreeMap.push();
+			
+			// calculate cosine value
+			double cosValue = cosNumerator(tfidfMatrix[ii]);
+			System.out.println(cosValue);
+			//input into cosTreeMap
+//			cosTreeMap.push(,docNameQuery);
 		}
 		
-		return listDocs;
+		return cosTreeMap;
+	}
+	
+	private double cosNumerator(double[] vector){
+		int cosValue = 0;
+		for(int ii =0; ii < queryDocNum; ii ++){
+			cosValue+=vector[ii] * qVector[ii];
+		}
+		return cosValue;
 	}
 	
 	private String[] returnRankedList(){
