@@ -30,7 +30,7 @@ public class VectorSpaceModel {
 	String[] listDocs;
 	Map<String, Integer> docsContainQuery = new HashMap<String, Integer>();
 	int queryDocNum;
-	TreeMap cosTreeMap;
+	TreeMap<Integer, String> cosTreeMap;
 	/**
 	 * ====================
 	 * Constructor
@@ -248,24 +248,48 @@ public class VectorSpaceModel {
 		Iterator<String> docNamesContainQuery = docsContainQuery.keySet().iterator();
 		for (int ii = 0; ii < queryDocNum; ii++){
 			String docNameQuery = docNamesContainQuery.next();  
-			System.out.println(docNameQuery);
+//			System.out.println(docNameQuery);
 			
 			// calculate cosine value
-			double cosValue = cosNumerator(tfidfMatrix[ii]);
-			System.out.println(cosValue);
+			double cosValueNum = cosNumerator(tfidfMatrix[ii]);
+			double cosValueDen = cosDenominator(tfidfMatrix[ii]);
+			if (cosValueDen == 0){
+				cosTreeMap.put(0,docNameQuery); // put a 0 into cosTreMap rather than NaN
+			} else{
+				double cosValue = cosValueNum/cosValueDen;
+				cosTreeMap.put((int) cosValue,docNameQuery);
+				System.out.println("check cast worked! " + cosValue);
+			}
 			//input into cosTreeMap
 //			cosTreeMap.push(,docNameQuery);
 		}
 		
 		return cosTreeMap;
 	}
-	
+	/**
+	 * ====================
+	 * cosNumerator
+	 * 	 
+	 * 	Description
+	 * 	calculates the numerator of the cosine vector algorithm
+	 * ====================	
+	 */
 	private double cosNumerator(double[] vector){
 		int cosValue = 0;
 		for(int ii =0; ii < queryDocNum; ii ++){
 			cosValue+=vector[ii] * qVector[ii];
 		}
 		return cosValue;
+	}
+	
+	private double cosDenominator(double[] vector){
+		int cosDocValue = 0;
+		int cosQueValue = 0;
+		for (int ii = 0; ii < queryDocNum; ii++){
+			cosDocValue += vector[ii]*vector[ii];
+			cosQueValue += qVector[ii]*qVector[ii];
+		}
+		return Math.sqrt(cosDocValue*cosQueValue);
 	}
 	
 	private String[] returnRankedList(){
