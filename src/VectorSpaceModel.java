@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.NavigableSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
@@ -30,7 +31,7 @@ public class VectorSpaceModel {
 	String[] listDocs;
 	Map<String, Integer> docsContainQuery = new HashMap<String, Integer>();
 	int queryDocNum;
-	TreeMap<Integer, String> cosTreeMap;
+	TreeMap<Double, String> cosTreeMap = new TreeMap<Double, String>();;
 	/**
 	 * ====================
 	 * Constructor
@@ -57,6 +58,7 @@ public class VectorSpaceModel {
 		vectorTFIDF();
 		queryTFIDF();
 		cosineCalc();
+		returnRankedList();
 	}
 	/**
 	 * ====================
@@ -150,7 +152,7 @@ public class VectorSpaceModel {
 				}	
 			}
 		}
-		System.out.println("queryDocNum is " + queryDocNum);
+//		System.out.println("queryDocNum is " + queryDocNum);
 		printDocsContainQuery(1,queryDocNum);
 		return queryDocNum;
 	}
@@ -169,7 +171,7 @@ public class VectorSpaceModel {
 			Iterator<String> iterate = filesNames.iterator();
 			for (int ii =0; ii < queryDocNum; ii++){
 				String file = iterate.next();
-				System.out.println(file + " " + docsContainQuery.get(file));
+//				System.out.println(file + " " + docsContainQuery.get(file));
 			}
 		}
 	}
@@ -227,9 +229,9 @@ public class VectorSpaceModel {
 			System.out.println("VectorSpaceModel TD-IDF");
 			for (int ii = 0; ii < tfidfMatrix.length; ii++){
 				for (int jj =0; jj < tfidfMatrix[0].length; jj++){
-					System.out.print(tfidfMatrix[ii][jj] + " ");
+//					System.out.print(tfidfMatrix[ii][jj] + " ");
 				}
-				System.out.println("");
+//				System.out.println("");
 			}
 		}
 	}
@@ -242,9 +244,9 @@ public class VectorSpaceModel {
 	 * 	Description
 	 * 	calculates the array containing all of the cosines 
 	 * ====================	
+	 * @return 
 	 */
-	private TreeMap<Integer, String> cosineCalc(){
-		cosTreeMap = new TreeMap<Integer, String>();
+	private void cosineCalc(){
 		Iterator<String> docNamesContainQuery = docsContainQuery.keySet().iterator();
 		for (int ii = 0; ii < queryDocNum; ii++){
 			String docNameQuery = docNamesContainQuery.next();  
@@ -254,17 +256,16 @@ public class VectorSpaceModel {
 			double cosValueNum = cosNumerator(tfidfMatrix[ii]);
 			double cosValueDen = cosDenominator(tfidfMatrix[ii]);
 			if (cosValueDen == 0){
-				cosTreeMap.put(0,docNameQuery); // put a 0 into cosTreMap rather than NaN
+				cosTreeMap.put((double) 0,docNameQuery); // put a 0 into cosTreMap rather than NaN
 			} else{
 				double cosValue = cosValueNum/cosValueDen;
-				cosTreeMap.put((int) cosValue,docNameQuery);
-				System.out.println("check cast worked! " + cosValue);
+				cosTreeMap.put(cosValue,docNameQuery);
+//				System.out.println("check cast worked! " + cosValue);
 			}
 			//input into cosTreeMap
 //			cosTreeMap.push(,docNameQuery);
 		}
-		
-		return cosTreeMap;
+//		return cosTreeMap;
 	}
 	/**
 	 * ====================
@@ -293,6 +294,17 @@ public class VectorSpaceModel {
 	}
 	
 	private String[] returnRankedList(){
+		// rank the list
+		
+		NavigableSet<Double> keys = cosTreeMap.descendingKeySet();
+//		System.out.println(keys);
+		Iterator<Double> keyIterate = keys.iterator();
+		listDocs = new String[cosTreeMap.size()];
+		for (int ii =0; ii < cosTreeMap.size(); ii++){
+//			System.out.println(keyIterate.next());
+			listDocs[ii] = cosTreeMap.get(keyIterate.next());
+			System.out.println(listDocs[ii]);
+		}
 		return listDocs;
 	}
 }
