@@ -87,7 +87,7 @@ public class VectorSpaceModel {
 //				System.out.println(idf(term));
 			}	
 		}
-		VectorSpaceOut(0);
+		VectorSpaceOut(1);
 	}
 	/**
 	 * ====================
@@ -228,6 +228,7 @@ public class VectorSpaceModel {
 //			nk = InvertedIndex.invertedIndex.get(term).size();
 //			System.out.println("Print nk: " + nk + "term is: " + term);
 		}
+		if (nk == 0) return 1;
 		return Math.log(queryDocNum/nk);
 	}
 	
