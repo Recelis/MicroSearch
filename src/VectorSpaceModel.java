@@ -84,9 +84,10 @@ public class VectorSpaceModel {
 			for (int jj =0; jj < BackData.vocabAfter; jj ++){ // loop through terms
 				String term = termIterator.next();
 				tfidfMatrix[ii][jj] = tf(term, docName) * idf(term);
+//				if (idf(term) > 0) System.out.println(idf(term));
 			}	
 		}
-		VectorSpaceOut(1);
+		VectorSpaceOut(0);
 	}
 	/**
 	 * ====================
@@ -202,7 +203,7 @@ public class VectorSpaceModel {
 		}
 		// number of all terms in doc i
 		
-//		System.out.println("fik" + fik);
+		System.out.println("fik " + fik/BackData.wordFreqDoc.get(docName));
 		return fik/BackData.wordFreqDoc.get(docName);
 	}
 	

@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -49,6 +50,11 @@ public class MicroSearch {
 		processAndIndex();
 		keywordSearchOp();
 		nfile.ProcessStatsCall();
+		Enumeration<String> enumdf = BackData.wordFreqDoc.keys();
+//		while(enumdf.hasMoreElements()){
+//			String key = enumdf.nextElement();
+//			System.out.println( key+ " " + BackData.wordFreqDoc.get(key));
+//		}
 		
 //		//Vector Space Section
 //		List<String> Terms = PreProcessing.ReturnKeys();

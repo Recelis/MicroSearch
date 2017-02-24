@@ -41,7 +41,8 @@ public class InvertedIndex {
 				checkForWord(tokens[wordCount], name);
 				wordCount++;
 				currentValue = BackData.wordFreqDoc.get(name); // build HashMap of doc word frequency
-				BackData.wordFreqDoc.put(name, currentValue++);
+				currentValue++;
+				BackData.wordFreqDoc.put(name, currentValue);
 			}
 		}
 		//System.out.println(invertedIndex.toString());
