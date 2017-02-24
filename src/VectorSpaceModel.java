@@ -86,7 +86,7 @@ public class VectorSpaceModel {
 				tfidfMatrix[ii][jj] = tf(term, docName) * idf(term);
 			}	
 		}
-		VectorSpaceOut(0);
+		VectorSpaceOut(1);
 	}
 	/**
 	 * ====================
@@ -194,7 +194,10 @@ public class VectorSpaceModel {
 
 		if (InvertedIndex.invertedIndex.get(term).containsKey(docName) == false){
 			return 0;
-		} else{
+		}else if(BackData.wordFreqDoc.get(docName) == 0){
+			return 0;
+		}
+		else{
 			fik = InvertedIndex.invertedIndex.get(term).get(docName);
 		}
 		// number of all terms in doc i
@@ -235,9 +238,9 @@ public class VectorSpaceModel {
 			System.out.println("VectorSpaceModel TD-IDF");
 			for (int ii = 0; ii < tfidfMatrix.length; ii++){
 				for (int jj =0; jj < tfidfMatrix[0].length; jj++){
-//					System.out.print(tfidfMatrix[ii][jj] + " ");
+					System.out.print(tfidfMatrix[ii][jj] + " ");
 				}
-//				System.out.println("");
+				System.out.println("");
 			}
 		}
 	}
