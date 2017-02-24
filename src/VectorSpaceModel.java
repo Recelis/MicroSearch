@@ -84,7 +84,7 @@ public class VectorSpaceModel {
 			for (int jj =0; jj < BackData.vocabAfter; jj ++){ // loop through terms
 				String term = termIterator.next();
 				tfidfMatrix[ii][jj] = tf(term, docName) * idf(term);
-//				if (idf(term) > 0) System.out.println(idf(term));
+//				System.out.println(idf(term));
 			}	
 		}
 		VectorSpaceOut(0);
@@ -203,7 +203,7 @@ public class VectorSpaceModel {
 		}
 		// number of all terms in doc i
 		
-		System.out.println("fik " + fik/BackData.wordFreqDoc.get(docName));
+//		System.out.println("fik " + fik/BackData.wordFreqDoc.get(docName));
 		return fik/BackData.wordFreqDoc.get(docName);
 	}
 	
@@ -217,11 +217,16 @@ public class VectorSpaceModel {
 	 */
 	private double idf(String term){
 		//numDocs
-		double nk;//number of documents containing term k
+		double nk = 0;//number of documents containing term k		
 		if (InvertedIndex.invertedIndex.get(term) == null){
 			return 0;
 		} else{
-			nk = InvertedIndex.invertedIndex.get(term).size();
+			Enumeration<String> keys = InvertedIndex.invertedIndex.get(term).keys();
+			while (keys.hasMoreElements()){
+				if (docsContainQuery.get(keys.nextElement()) !=null) nk++;
+			}
+//			nk = InvertedIndex.invertedIndex.get(term).size();
+//			System.out.println("Print nk: " + nk + "term is: " + term);
 		}
 		return Math.log(queryDocNum/nk);
 	}

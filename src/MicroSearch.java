@@ -50,7 +50,7 @@ public class MicroSearch {
 		processAndIndex();
 		keywordSearchOp();
 		nfile.ProcessStatsCall();
-		Enumeration<String> enumdf = BackData.wordFreqDoc.keys();
+//		Enumeration<String> enumdf = BackData.wordFreqDoc.keys();
 //		while(enumdf.hasMoreElements()){
 //			String key = enumdf.nextElement();
 //			System.out.println( key+ " " + BackData.wordFreqDoc.get(key));
