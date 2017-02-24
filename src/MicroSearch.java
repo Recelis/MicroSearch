@@ -119,6 +119,7 @@ public class MicroSearch {
 		vectorSpace = new VectorSpaceModel();
 		for(int ii = 0; ii < BackData.numDocs;ii++){ // loop through each document in directory
 			name = BackData.directoryNames[ii];
+			BackData.wordFreqDoc.put(name, 0); // set all document names to 0
 			nfile.ReadIn(DataDirectory + "/" + name);
 			nfile.fileContents.clear(); // clear fileContents for each previous file
 			nfile.processLine(name);

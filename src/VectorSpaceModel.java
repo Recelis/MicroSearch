@@ -73,7 +73,7 @@ public class VectorSpaceModel {
 	 */
 	private void vectorTFIDF(){
 		queryDocNum = documentsContainingQuery();
-		System.out.println("queryDocNum is " + queryDocNum + "number of terms" + (int) BackData.vocabAfter + "integermax " + Integer.MAX_VALUE);
+		System.out.println("queryDocNum is " + queryDocNum + ". number of terms " + (int) BackData.vocabAfter + ". integermax " + Integer.MAX_VALUE);
 		tfidfMatrix = new double[queryDocNum][(int) BackData.vocabAfter]; // okay up to 2147483647, may need to be scaled after
 		Iterator<String> docContainQIterate = docsContainQuery.keySet().iterator();
 		
@@ -193,8 +193,9 @@ public class VectorSpaceModel {
 			fik = InvertedIndex.invertedIndex.get(term).get(docName);
 		}
 		// number of all terms in doc i
+		
 //		System.out.println("fik" + fik);
-		return fik;
+		return fik/BackData.wordFreqDoc.get(docName);
 	}
 	
 	/**
@@ -295,7 +296,6 @@ public class VectorSpaceModel {
 	
 	private String[] returnRankedList(){
 		// rank the list
-		
 		NavigableSet<Double> keys = cosTreeMap.descendingKeySet();
 //		System.out.println(keys);
 		Iterator<Double> keyIterate = keys.iterator();

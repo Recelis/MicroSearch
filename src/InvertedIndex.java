@@ -1,6 +1,8 @@
 
 import java.util.Hashtable;
 
+import Storage.BackData;
+
 public class InvertedIndex {
 	public static Hashtable<String, Hashtable<String, Integer>> invertedIndex;
 	/**
@@ -29,6 +31,7 @@ public class InvertedIndex {
 	public void scanForWord(String newLine, String name){
 		String[] tokens = newLine.split("\\s");
 		int wordCount = 0;
+		int currentValue = 0;
 		while(wordCount < tokens.length){ // check through each word in line
 			
 			if (!tokens[wordCount].matches("[a-zA-Z0-9]+")) {
@@ -37,6 +40,8 @@ public class InvertedIndex {
 			} else{
 				checkForWord(tokens[wordCount], name);
 				wordCount++;
+				currentValue = BackData.wordFreqDoc.get(name); // build HashMap of doc word frequency
+				BackData.wordFreqDoc.put(name, currentValue++);
 			}
 		}
 		//System.out.println(invertedIndex.toString());

@@ -1,5 +1,6 @@
 package Storage;
 
+import java.util.Hashtable;
 import java.util.List;
 
 // this class is used to place data that will be used by multiple classes
@@ -22,4 +23,5 @@ public class BackData {
 	static public List<String> KeysAfter;
 	static public String[] query; // prev keyWords
 	static public int numRetrieve = 100;
+	static public Hashtable<String, Integer> wordFreqDoc = new Hashtable<String, Integer>(); //all docs set to 0 
 }
