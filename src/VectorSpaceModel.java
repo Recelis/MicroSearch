@@ -83,11 +83,12 @@ public class VectorSpaceModel {
 			Iterator<String> termIterator = BackData.KeysAfter.iterator();
 			for (int jj =0; jj < BackData.vocabAfter; jj ++){ // loop through terms
 				String term = termIterator.next();
+//				if (jj < 30) System.out.println(term);
 				tfidfMatrix[ii][jj] = tf(term, docName) * idf(term);
 //				System.out.println(idf(term));
 			}	
 		}
-		VectorSpaceOut(1);
+		VectorSpaceOut(0);
 	}
 	/**
 	 * ====================
@@ -106,10 +107,14 @@ public class VectorSpaceModel {
 		}
 		for (int ii =0; ii < BackData.query.length; ii++){
 			int index = BackData.KeysAfter.indexOf(BackData.query[ii]); // KeysAfter corresponds with qVector locations
+//			System.out.println("index is: " + index + " query is " + BackData.query[ii]);
 			if (index >= 0){
 				qVector[index] = idf(BackData.query[ii]);
 			}
 		}
+//		for (int ii =0; ii< qVector.length; ii++){
+//		System.out.print(qVector[ii] +" ");
+//		}
 	}
 	/**
 	 * ====================
@@ -267,16 +272,16 @@ public class VectorSpaceModel {
 		for (int ii = 0; ii < queryDocNum; ii++){
 			String docNameQuery = docNamesContainQuery.next();  
 //			System.out.println(docNameQuery);
-			
 			// calculate cosine value
 			double cosValueNum = cosNumerator(tfidfMatrix[ii]);
 			double cosValueDen = cosDenominator(tfidfMatrix[ii]);
-			if (cosValueDen == 0){
-				cosTreeMap.put((double) 0,docNameQuery); // put a 0 into cosTreMap rather than NaN
+//			System.out.println(cosValueDen);
+			if (cosValueDen == 0.0){
+				cosTreeMap.put(0.0,docNameQuery); // put a 0 into cosTreeMap rather than NaN
 			} else{
 				double cosValue = cosValueNum/cosValueDen;
 				cosTreeMap.put(cosValue,docNameQuery);
-//				System.out.println("check cast worked! " + cosValue);
+				System.out.println(cosValue + " " + docNameQuery);
 			}
 			//input into cosTreeMap
 //			cosTreeMap.push(,docNameQuery);
@@ -293,19 +298,21 @@ public class VectorSpaceModel {
 	 */
 	private double cosNumerator(double[] vector){
 		int cosValue = 0;
-		for(int ii =0; ii < queryDocNum; ii ++){
+		for(int ii =0; ii < BackData.vocabAfter; ii ++){
 			cosValue+=vector[ii] * qVector[ii];
 		}
 		return cosValue;
 	}
 	
 	private double cosDenominator(double[] vector){
-		int cosDocValue = 0;
-		int cosQueValue = 0;
-		for (int ii = 0; ii < queryDocNum; ii++){
-			cosDocValue += vector[ii]*vector[ii];
-			cosQueValue += qVector[ii]*qVector[ii];
+		double cosDocValue = 0;
+		double cosQueValue = 0;
+		for (int ii = 0; ii < BackData.vocabAfter; ii++){
+//			System.out.println(cosDocValue +" "+ qVector[ii]);
+			cosDocValue = cosDocValue+ vector[ii]*vector[ii];
+			cosQueValue = cosQueValue+ qVector[ii]*qVector[ii];
 		}
+//		System.out.println(Math.sqrt(cosDocValue*cosQueValue));
 		return Math.sqrt(cosDocValue*cosQueValue);
 	}
 	
