@@ -29,6 +29,7 @@ public class VectorSpaceModel {
 	double[][] tfidfMatrix; // used for idf number of docs per term
 	double[] qVector;
 	String[] listDocs;
+	Map<String, Integer> docsContainQueryPrior = new HashMap<String, Integer>();
 	Map<String, Integer> docsContainQuery = new HashMap<String, Integer>();
 	int queryDocNum;
 	TreeMap<Double, String> cosTreeMap = new TreeMap<Double, String>();;
@@ -120,7 +121,7 @@ public class VectorSpaceModel {
 	 */	
 	private void fillDocsContainQuery(){
 		for (int ii = 0; ii < BackData.directoryNames.length; ii++){// fill queryDocNum as all zeros initially
-			docsContainQuery.put(BackData.directoryNames[ii], 0);
+			docsContainQueryPrior.put(BackData.directoryNames[ii], 0);
 		}
 	}
 	
@@ -140,38 +141,42 @@ public class VectorSpaceModel {
 		for (int ii =0; ii < BackData.query.length; ii++){
 			if (InvertedIndex.invertedIndex.get(BackData.query[ii]) != null){ // see if query shows up in documents
 				Enumeration<String> fileNamesContainQueryN= InvertedIndex.invertedIndex.get(BackData.query[ii]).keys();
-				for (int jj =0; jj < InvertedIndex.invertedIndex.get(BackData.query[ii]).size(); jj++){
-					String fileName = fileNamesContainQueryN.nextElement(); // get directoryName
-					int count = docsContainQuery.get(fileName); // get current count of query in docsContainQuery
+				for (int jj =0; jj < InvertedIndex.invertedIndex.get(BackData.query[ii]).size(); jj++){ // see how many documents contain specific query term
+					String fileName = fileNamesContainQueryN.nextElement(); // get fileName
+					int count = docsContainQueryPrior.get(fileName); // get current count of query terms in docsContainQuery
 					int newCount = count + InvertedIndex.invertedIndex.get(BackData.query[ii]).get(fileName);
 //					System.out.println("newCount " + newCount);
-					if (docsContainQuery.get(fileName)==0){
+					if (docsContainQueryPrior.get(fileName)==0){ // new file with detected!
 						queryDocNum++;
 					}
-					docsContainQuery.put(fileName, newCount);
+					docsContainQueryPrior.put(fileName, newCount);
 				}	
 			}
 		}
 //		System.out.println("queryDocNum is " + queryDocNum);
-		printDocsContainQuery(1,queryDocNum);
+		removeZeroDocsContainQuery(1,queryDocNum);
 		return queryDocNum;
 	}
 	
 	/**
 	 * ====================
-	 * printDocsContainQuery
+	 * removeZeroDocsContainQuery
 	 * 	 
 	 * 	Description
 	 * 	Prints the docsContainQuery hashmap
+	 *  removes all 0s from docsContainQueryPrior
 	 * ====================	
 	 */	
-	private void printDocsContainQuery(int printSwitch, int queryDocNum){
+	private void removeZeroDocsContainQuery(int printSwitch, int queryDocNum){
 		if (printSwitch == 1){
-			Set<String> filesNames =docsContainQuery.keySet();
+			Set<String> filesNames =docsContainQueryPrior.keySet();
 			Iterator<String> iterate = filesNames.iterator();
-			for (int ii =0; ii < queryDocNum; ii++){
+			for (int ii =0; ii < BackData.numDocs; ii++){
 				String file = iterate.next();
-//				System.out.println(file + " " + docsContainQuery.get(file));
+				if (docsContainQueryPrior.get(file) > 0){
+					docsContainQuery.put(file, docsContainQueryPrior.get(file)); 
+//					System.out.println(file + " " + docsContainQuery.get(file));
+				} 
 			}
 		}
 	}
@@ -297,7 +302,7 @@ public class VectorSpaceModel {
 	private String[] returnRankedList(){
 		// rank the list
 		NavigableSet<Double> keys = cosTreeMap.descendingKeySet();
-//		System.out.println(keys);
+		System.out.println("The size of cosTreeMap is: " + cosTreeMap.size());
 		Iterator<Double> keyIterate = keys.iterator();
 		listDocs = new String[cosTreeMap.size()];
 		for (int ii =0; ii < cosTreeMap.size(); ii++){
