@@ -275,13 +275,14 @@ public class VectorSpaceModel {
 			// calculate cosine value
 			double cosValueNum = cosNumerator(tfidfMatrix[ii]);
 			double cosValueDen = cosDenominator(tfidfMatrix[ii]);
-//			System.out.println(cosValueDen);
+//			System.out.println(cosValueNum +" " + cosValueDen);
 			if (cosValueDen == 0.0){
 				cosTreeMap.put(0.0,docNameQuery); // put a 0 into cosTreeMap rather than NaN
 			} else{
 				double cosValue = cosValueNum/cosValueDen;
+//				System.out.println(cosValue);
 				cosTreeMap.put(cosValue,docNameQuery);
-				System.out.println(cosValue + " " + docNameQuery);
+//				System.out.println(cosValue + " " + docNameQuery);
 			}
 			//input into cosTreeMap
 //			cosTreeMap.push(,docNameQuery);
@@ -297,9 +298,9 @@ public class VectorSpaceModel {
 	 * ====================	
 	 */
 	private double cosNumerator(double[] vector){
-		int cosValue = 0;
+		double cosValue = 0;
 		for(int ii =0; ii < BackData.vocabAfter; ii ++){
-			cosValue+=vector[ii] * qVector[ii];
+			cosValue= cosValue + vector[ii] * qVector[ii];
 		}
 		return cosValue;
 	}
